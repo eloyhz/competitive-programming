@@ -2,15 +2,12 @@
 // https://onlinejudge.org/external/123/12356.pdf
 
 #include <iostream>
-#include <set>
-#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-	int s, b, l, r, i, j;
-	set<int> soldiers;
+	int s, b, l, r, i, ln, rn;
 
 	ios::sync_with_stdio(0);
 	cin.tie(0);
@@ -19,28 +16,24 @@ int main()
 		if (s == 0 && b == 0)	{
 			break;
 		}
-		soldiers.clear();
+		int ls[s + 1], rs[s + 1];
 		for (i = 1; i <= s; i++)	{
-			soldiers.insert(i);
+			ls[i] = i - 1;
+			rs[i] = i + 1;
 		}
+		ls[1] = rs[s] = 0;
 		for (i = 1; i <= b; i++)	{
 			cin >> l >> r;
-			for (j = l; j <= r; j++)	{
-				soldiers.erase(j);
-			}
-			auto left = lower_bound(soldiers.begin(), soldiers.end(), l);
-			auto right = upper_bound(soldiers.begin(), soldiers.end(), r);
-			if (left == soldiers.begin())	{
-				cout << "*";
-			}	else	{
-				cout << *--left;
-			}
+			ln = ls[l];
+			rn = rs[r];
+			ls[rn] = ln;
+			rs[ln] = rn;
+			//cout << (ln == 0 ? '*' : ln) << " " << (rn > 0 ? rn : '*') << "\n";
+			if (ln > 0)	cout << ln;
+			else cout << "*";
 			cout << " ";
-			if (right == soldiers.end())	{
-				cout << "*";
-			}	else	{
-				cout << *right;
-			}
+			if (rn > 0)	cout << rn;
+			else cout << "*";
 			cout << "\n";
 		}
 		cout << "-\n";
