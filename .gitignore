@@ -2,6 +2,9 @@
 .idea
 .vscode
 
+# Other files
+.DS_Store
+
 # input files
 *.in
 
