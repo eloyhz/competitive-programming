@@ -14,11 +14,11 @@ if __name__ == "__main__":
 			rs[i] = i + 1
 		for _ in range(b):
 			l, r = [int(x) for x in input().split()]
-			a = ls[l]
-			b = rs[r]
-			if b != '*':
-				ls[b] = a
-			if a != '*':
-				rs[a] = b
-			print(a, b)
+			left = ls[l]
+			right = rs[r]
+			if right != '*':
+				ls[right] = left
+			if left != '*':
+				rs[left] = right 
+			print(left, right)
 		print("-")
