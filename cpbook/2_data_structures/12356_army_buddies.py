@@ -6,22 +6,19 @@ if __name__ == "__main__":
 		s, b = [int(x) for x in input().split()]
 		if s == b == 0:
 			break
-		soldiers = [True for _ in range(s + 1)]
-		soldiers[0] = None
+		ls = ['*'] * (s + 1)
+		rs = ['*'] * (s + 1)
+		for i in range(2, s + 1):
+			ls[i] = i - 1
+		for i in range(1, s):
+			rs[i] = i + 1
 		for _ in range(b):
 			l, r = [int(x) for x in input().split()]
-			for i in range(l, r + 1):
-				soldiers[i] = False
-			left_neighbor = "*"
-			for i in range(l, 0, -1):
-				if soldiers[i]:
-					left_neighbor = i
-					break
-			right_neighbor = "*"
-			for i in range(r + 1, s + 1):
-				if soldiers[i]:
-					right_neighbor = i
-					break
-			print(left_neighbor, right_neighbor)
+			a = ls[l]
+			b = rs[r]
+			if b != '*':
+				ls[b] = a
+			if a != '*':
+				rs[a] = b
+			print(a, b)
 		print("-")
-
