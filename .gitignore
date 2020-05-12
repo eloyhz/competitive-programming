@@ -2,6 +2,9 @@
 .idea
 .vscode
 
+# input files
+*.in
+
 # Prerequisites
 *.d
 
