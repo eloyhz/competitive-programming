@@ -6,11 +6,15 @@ if __name__ == "__main__":
 	for _ in range(t):
 		n = int(input())
 		m = {}
-		u = True
-		for _ in range(n):
+		r = 0
+		for i in range(n):
 			s = int(input())
 			if s in m:
-				u = False
-			elif u:
-				m[s] = 1
-		print(len(m))
+				r = max(r, len(m))
+				d = [k for k in m if m[k] <= m[s]]
+				for k in d:
+					del m[k]
+			m[s] = i
+			# print(i, s, m)
+		r = max(r, len(m))
+		print(r)
