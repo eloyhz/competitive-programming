@@ -1,3 +1,7 @@
+# Codeforces Round #640 (Div. 4)
+# D. Alice, Bob and Candies
+# https://codeforces.com/contest/1352/problem/D
+
 if __name__ == "__main__":
     t = int(input())
     for _ in range(t):
