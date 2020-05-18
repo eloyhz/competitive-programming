@@ -3,6 +3,7 @@
 
 import collections
 
+
 def test_case(text):
 	output = collections.deque()
 	stack = collections.deque()
@@ -10,22 +11,19 @@ def test_case(text):
 	left = False
 	for c in text:
 		if c == '[':
-			while left and len(stack) > 0:
-				e = stack.pop()
-				output.appendleft(e)
 			left = True
+			while len(stack) > 0:
+				output.appendleft(stack.pop())
 		elif c == ']':
 			left = False
 			while len(stack) > 0:
-				e = stack.pop()
-				output.appendleft(e)
+				output.appendleft(stack.pop())
 		elif left:
 			stack.append(c)
 		else:
 			output.append(c)
-	while left and len(stack) > 0:
-		e = stack.pop()
-		output.appendleft(e)
+	while len(stack) > 0:
+		output.appendleft(stack.pop())
 	print(''.join(output))
 
 
