@@ -1,17 +1,19 @@
 # UVa 10954 - Add All
 # https://onlinejudge.org/external/109/10954.pdf
 
+import heapq
+
 
 def solve():
 	a = [int(x) for x in input().split()]
 	n = len(a)
-	a.sort()
-	total = a[0] + a[1]
-	cost = total
-	for i in range(2, n):
-		cost += total + a[i]
-		total += a[i]
-	print(cost)
+	heapq.heapify(a)
+	total = 0
+	while len(a) > 1:
+		cost = heapq.heappop(a) + heapq.heappop(a)
+		heapq.heappush(a, cost)
+		total += cost
+	print(total)
 
 
 if __name__ == "__main__":
