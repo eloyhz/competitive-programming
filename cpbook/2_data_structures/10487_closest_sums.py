@@ -9,18 +9,16 @@ def test_case(t, n):
 		a[i] = int(input())
 	m = int(input())
 	print("Case ", t, ":", sep="")
-	for i in range(m):
+	for _ in range(m):
 		b = int(input())
 		r = sys.maxsize
-		for i in range(n):
-			for j in range(i, n):
-				if a[i] == a[j]:
-					continue
+		for i in range(n - 1):
+			for j in range(i + 1, n):
 				s = a[i] + a[j]
 				if abs(s - b) < r:
 					r = abs(s - b)
-					t = s
-		print("Closest sum to ", b, " is ", t, ".", sep="")
+					e = s
+		print("Closest sum to ", b, " is ", e, ".", sep="")
 
 
 if __name__ == "__main__":
