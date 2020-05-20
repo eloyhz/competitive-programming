@@ -15,13 +15,9 @@ def search(k):
 		for i in range(len(subset)):
 			s += tracks[subset[i]]
 			r.append(tracks[subset[i]])
-			# print(tracks[subset[i]], "", end="")
-		if s <= m:
-			if s > best:
-				best = s
-				result = r[:]
-			# print(r, end="")
-			# print("sum = ", s)
+		if s <= m and s >= best:
+			best = s
+			result = r[:]
 	else:
 		search(k + 1)
 		subset.append(k)
@@ -31,13 +27,13 @@ def search(k):
 
 
 def test_case(line):
-	global tracks, n, m, result
+	global tracks, n, m, result, best
 	info = [int(x) for x in line.split()]
 	m = info[0]
 	n = info[1]
 	tracks = info[2:]
-	print(tracks)
 	result = []
+	best = 0
 	search(0)
 	for r in result:
 		print(r, "", end="")
