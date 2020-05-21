@@ -13,11 +13,11 @@
 
 # Reference: Competitive Programmer's Handbook. p. 50
 
-n = 4
+n = 8
 count = 0
 column = [False] * n
-diag1 = [False] * n
-diag2 = [False] * n
+diag1 = [False] * (2 * n - 1)
+diag2 = [False] * (2 * n - 1)
 
 
 def search(y):
