@@ -10,24 +10,8 @@ n = 0
 def are_anagrams(s1, s2):
 	if len(s1) != len(s2):
 		return False
-	m1 = {}
-	for s in s1:
-		if s not in m1:
-			m1[s] = 1
-		else:
-			m1[s] += 1
-	m2 = {}
-	for s in s2:
-		if s not in m2:
-			m2[s] = 1
-		else:
-			m2[s] += 1
-	for k in m1:
-		if m1[k] != m2[k]:
-			return False
-	for k in m2:
-		if m2[k] != m1[k]:
-			return False
+	if sorted(s1) != sorted(s2):
+		return False
 	return True
 
 
@@ -48,20 +32,18 @@ def is_valid(source, target):
 		return True
 
 
-def generate(k, s, t):
+def generate(k, s, t, i, o):
 	global solution, result, n
+	if o > i or i > n: return
 	if k == n * 2:
-		if n > 1:
-			if solution[1] == solution[2] == 'o':
-				return
-		if solution.count('o') == solution.count('i') and is_valid(s, t):
+		if is_valid(s, t):
 			result.append(' '.join(solution))
 	else:
 		solution.append('i')
-		generate(k + 1, s, t)
+		generate(k + 1, s, t, i + 1, o)
 		solution.pop()
 		solution.append('o')
-		generate(k + 1, s, t)
+		generate(k + 1, s, t, i, o + 1)
 		solution.pop()
 
 
@@ -75,7 +57,7 @@ def test_case(s, t):
 	n = len(s)
 	result = []
 	solution = ['i']
-	generate(1, s, t)
+	generate(1, s, t, 1, 0)
 	result.sort()
 	print("[")
 	for r in result:
@@ -84,7 +66,7 @@ def test_case(s, t):
 
 
 if __name__ == "__main__":
-	start_time = time.time()
+	# start_time = time.time()
 	while True:
 		source = target = ""
 		try:
@@ -95,5 +77,5 @@ if __name__ == "__main__":
 		except EOFError:
 			break
 		test_case(source, target)
-	print("--- %s seconds ---" % (time.time() - start_time))
+	# print("--- %s seconds ---" % (time.time() - start_time))
 
