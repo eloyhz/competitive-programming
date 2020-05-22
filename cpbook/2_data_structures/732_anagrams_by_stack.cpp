@@ -9,6 +9,7 @@
 #include <stack>
 #include <queue>
 #include <chrono>
+#include <map>
 
 using namespace std;
 using namespace std::chrono;
@@ -16,7 +17,9 @@ using namespace std::chrono;
 string source, target;
 int n;
 bitset<32> solution;
+vector<string> solutions;
 vector<string> result;
+map<int, vector<string>> cache;
 
 bool is_valid(const string& sol)	
 {
@@ -61,9 +64,7 @@ void generate(int k, int i, int o)
 			sol += (solution.test(i) ? "i" : "o");
 			sol += (i < k - 1 ? " " : "");
 		}
-		if (is_valid(sol))	{
-			result.push_back(sol);
-		}
+		solutions.push_back(sol);
 	}	else	{
 		solution.set(k);
 		generate(k + 1, i + 1, o);
@@ -87,6 +88,27 @@ bool are_anagrams()
 	return true;
 }
 
+void print_result()
+{
+	cout << "[\n";
+	for (auto r : result)	{
+		cout << r << "\n";
+	}
+	cout << "]\n";
+}
+
+void get_result()
+{
+	result.clear();
+	for (auto s : solutions)	{
+		if (is_valid(s))	{
+			result.push_back(s);
+		}
+	}
+	sort(result.begin(), result.end());
+	print_result();
+}
+
 void test_case()
 {
 	if (!are_anagrams())	{
@@ -94,16 +116,16 @@ void test_case()
 		return;
 	}
 	n = source.size();
-	result.clear();
-	solution.reset();
-	solution.set(0);
-	generate(1, 1, 0);
-	sort(result.begin(), result.end());
-	cout << "[\n";
-	for (auto r : result)	{
-		cout << r << "\n";
+	if (cache.count(n) == 0)	{
+		solutions.clear();
+		solution.reset();
+		solution.set(0);
+		generate(1, 1, 0);
+		cache[n] = solutions;
+	}	else	{
+		solutions = cache[n];
 	}
-	cout << "]\n";
+	get_result();
 }
 
 int main()
@@ -124,6 +146,16 @@ int main()
 		}
 		test_case();
 	}
+/*
+	for (auto it = cache.begin(); it != cache.end(); it++)	{
+		cout << it->first << endl;
+		for (auto& at : it->second)	{
+			cout << at << endl;
+		}
+		cout << endl;
+	}
+*/
+
 /*
 	auto stop = high_resolution_clock::now();
 	auto duration_nanoseconds = duration_cast<nanoseconds>(stop - start);
