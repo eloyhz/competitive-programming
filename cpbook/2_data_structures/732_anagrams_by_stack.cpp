@@ -9,17 +9,14 @@
 #include <stack>
 #include <queue>
 #include <chrono>
-#include <map>
 
 using namespace std;
-using namespace std::chrono;
 
 string source, target;
 int n;
 bitset<32> solution;
 vector<string> solutions;
 vector<string> result;
-map<int, vector<string>> cache;
 
 bool is_valid(const string& sol)	
 {
@@ -109,30 +106,62 @@ void get_result()
 	print_result();
 }
 
+void build_path(vector<char> path, stack<char> st, char next_op, int ci, int co, int i, int o)
+{
+	path.push_back(next_op);
+	if (next_op == 'i')	{
+		i++;
+		if (ci == n)	{
+			return;
+		}
+		st.push(source[ci++]);
+	}	else	{
+		if (st.empty())	{
+			return;
+		}
+		o++;
+		char c = st.top();
+		if (c != target[co++])	{
+			return;
+		}
+		st.pop();
+	}
+	if (path.size() == n * 2)	{
+		for (auto p : path)	{
+			cout << p;
+		}
+		cout << endl;
+	}	else	{
+		if (i < n)	{
+			build_path(path, st, 'i', ci, co, i, o);
+		}	else	{
+			build_path(path, st, 'o', ci, co, i, o);
+		}
+	}
+}
+
 void test_case()
 {
 	if (!are_anagrams())	{
 		cout << "[\n]\n";
 		return;
 	}
+	vector<char> p;
+	stack<char> s;
+	build_path(p, s, 'i', 0, 0, 0, 0);
+	/*
 	n = source.size();
-	if (cache.count(n) == 0)	{
-		solutions.clear();
-		solution.reset();
-		solution.set(0);
-		generate(1, 1, 0);
-		cache[n] = solutions;
-	}	else	{
-		solutions = cache[n];
-	}
+	solution.reset();
+	solution.set(0);
+	generate(1, 1, 0);
 	get_result();
+	*/
 }
 
 int main()
 {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-//	auto start = high_resolution_clock::now();
 	while (!cin.eof())	{
 		source = target = "";
 		while (!cin.eof() && source == "")	{
@@ -146,26 +175,5 @@ int main()
 		}
 		test_case();
 	}
-
-	for (auto it = cache.begin(); it != cache.end(); it++)	{
-		cout << it->first << endl;
-		for (auto& at : it->second)	{
-			cout << at << endl;
-		}
-		cout << endl;
-	}
-
-
-/*
-	auto stop = high_resolution_clock::now();
-	auto duration_nanoseconds = duration_cast<nanoseconds>(stop - start);
-	cout << "--- " << duration_nanoseconds.count() << " --- nanoseconds\n";
-	auto duration = duration_cast<microseconds>(stop - start);
-	cout << "--- " << duration.count() << " --- microseconds\n";
-	auto duration_milliseconds = duration_cast<milliseconds>(stop - start);
-	cout << "--- " << duration_milliseconds.count() << " --- milliseconds\n";
-	auto duration_seconds = duration_cast<seconds>(stop - start);
-	cout << "--- " << duration_seconds.count() << " --- seconds\n";
-*/
 }
 	
