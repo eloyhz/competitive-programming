@@ -2,6 +2,10 @@
 .idea
 .vscode
 
+# CMake
+cmake-build-debug/
+CMakeLists.txt
+
 # Java class files
 *.class
 
