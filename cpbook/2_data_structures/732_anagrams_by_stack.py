@@ -3,65 +3,50 @@
 
 import time
 
-result = []
-solution = []
+source = target = ""
 n = 0
 
-def are_anagrams(s1, s2):
-	if len(s1) != len(s2):
+def are_anagrams():
+	if len(source) != len(target):
 		return False
-	if sorted(s1) != sorted(s2):
+	if sorted(source) != sorted(target):
 		return False
 	return True
 
 
-def is_valid(source, target):
-	stack = []
-	r = []
-	s = list(source)
-	for op in solution:
-		if op == 'i': 	# push
-			if len(s) == 0:
-				return False
-			stack.append(s.pop(0))
-		elif op == 'o':	# pop
-			if len(stack) == 0:
-				return False
-			r.append(stack.pop())
-	if target == ''.join(r):
-		return True
-
-
-def generate(k, s, t, i, o):
-	global solution, result, n
-	if o > i or i > n: return
-	if k == n * 2:
-		if is_valid(s, t):
-			result.append(' '.join(solution))
+def build_path(path, st, next_op, ci, co, i, o):
+	path.append(next_op)
+	if next_op == 'i':
+		i += 1
+		if ci == n:
+			return
+		st.append(source[ci])
+		ci += 1
 	else:
-		solution.append('i')
-		generate(k + 1, s, t, i + 1, o)
-		solution.pop()
-		solution.append('o')
-		generate(k + 1, s, t, i, o + 1)
-		solution.pop()
+		o += 1
+		if len(st) == 0:
+			return
+		if st.pop() != target[co]:
+			return
+		co += 1
+	if len(path) == n * 2:
+		print(' '.join(path))
+	else:
+		if i < n:
+			build_path(path[:], st[:], 'i', ci, co, i, o)
+		if o < n:
+			build_path(path[:], st[:], 'o', ci, co, i, o)
 
 
-def test_case(s, t):
-	global solution, n, result
-	
-	if not are_anagrams(s, t):
+def test_case():
+	global n
+	if not are_anagrams():
 		print("[")
 		print("]")
 		return
-	n = len(s)
-	result = []
-	solution = ['i']
-	generate(1, s, t, 1, 0)
-	result.sort()
+	n = len(source)
 	print("[")
-	for r in result:
-		print(r)
+	build_path([], [], 'i', 0, 0, 0, 0)
 	print("]")
 
 
@@ -76,6 +61,6 @@ if __name__ == "__main__":
 				target = input()
 		except EOFError:
 			break
-		test_case(source, target)
+		test_case()
 	# print("--- %s seconds ---" % (time.time() - start_time))
 
