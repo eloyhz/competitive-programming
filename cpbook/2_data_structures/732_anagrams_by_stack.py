@@ -1,5 +1,7 @@
 # UVa 732 - Anagrams by Stack
 # https://onlinejudge.org/external/7/732.pdf
+# Editorial: 
+# https://www.redgreencode.com/implementing-a-fast-solution-to-uva-732/
 
 import time
 
