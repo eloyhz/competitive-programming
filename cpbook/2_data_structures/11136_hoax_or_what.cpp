@@ -3,11 +3,44 @@
 
 #include <iostream>
 #include <list>
+#include <set>
 #include <algorithm>
 
 using namespace std;
 
 void test_case(int n)
+{
+	multiset<long long> bills;
+	long long total_amount = 0;
+	long long k, bill, lowest_bill, highest_bill;
+	long long erased;
+
+	while (n--)	{
+		cin >> k;
+		while (k--)	{
+			cin >> bill;
+			bills.insert(bill);
+		}
+		lowest_bill = *(bills.begin());
+		erased = bills.erase(lowest_bill);
+		if (erased > 1)	{
+			while(--erased)	{
+				bills.insert(lowest_bill);
+			}
+		}
+		highest_bill = *(bills.rbegin());
+		erased = bills.erase(highest_bill);
+		if (erased > 1)	{
+			while(--erased)	{
+				bills.insert(highest_bill);
+			}
+		}
+		total_amount += highest_bill - lowest_bill;
+	}
+	cout << total_amount << "\n";
+}
+
+void test_case_list(int n)
 {
 	list<long long> bills;
 	long long total_amount = 0;
