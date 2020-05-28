@@ -4,6 +4,8 @@
 from itertools import permutations
 from sys import maxsize
 
+# Reference
+# https://asdfcoding.wordpress.com/2012/11/05/11553-grid-game-uva/
 def game(n, grid, order):
 	alice_candies = 0
 	for i in range(n):

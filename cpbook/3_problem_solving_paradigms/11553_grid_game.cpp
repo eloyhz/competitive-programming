@@ -23,6 +23,8 @@ void load_data(vector<vector<int>>& grid, int n)
 	}
 }
 
+// Reference:
+// https://asdfcoding.wordpress.com/2012/11/05/11553-grid-game-uva/
 int game(vector<vector<int>>& grid, int n, vector<int>& col)
 {
 	int w = 0;
