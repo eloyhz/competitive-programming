@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <climits>
 
 using namespace std;
 
@@ -22,47 +23,33 @@ void load_data(vector<vector<int>>& grid, int n)
 	}
 }
 
-int game(vector<vector<int>> grid, int n, vector<int> order)
+int game(vector<vector<int>>& grid, int n, vector<int>& col)
 {
-	int alice_candies = 0;
+	int w = 0;
 
-	for (auto i : order)	{
-		int bob_column = 0;
-		for (int j = 1; j < n; j++)	{
-			if (grid[i][j] < grid[i][bob_column])	{
-				bob_column = j;
-			}
-		}
-		alice_candies += grid[i][bob_column];
-		for (int k = 0; k < n; k++)	{
-			grid[k][bob_column] = 1001;
-		}
+	for (int i = 0; i < n; i++)	{
+		w += grid[i][col[i]];	
 	}
-	return alice_candies;
+
+	return w;
 }
 
 void test_case(int n)
 {
 	vector<vector<int>> grid;
+	vector<int> perm;
+	int best = INT_MAX;
+	int result;
 
 	load_data(grid, n);
-	
-	vector<int> perm;
 	for (int i = 0; i < n; i++)	{
 		perm.push_back(i);
 	}
-	int best_neg = 0;
-	int best_pos = 0;
-	int result = 0;
 	do	{
 		result = game(grid, n, perm);
-		if (result < 0)	{
-			best_neg = min(best_neg, result);
-		}	else	{
-			best_pos = max(best_pos, result);
-		}
+		best = min(best, result);
 	}	while (next_permutation(perm.begin(), perm.end()));
-	cout << (best_neg < 0 ? best_neg : best_pos) << "\n";
+	cout << best << endl;
 }
 
 
