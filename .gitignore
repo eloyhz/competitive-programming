@@ -6,6 +6,13 @@
 cmake-build-debug/
 CMakeLists.txt
 
+# Python
+__pycache__/
+.pytest_cache/
+
+# Exercism
+.exercism/
+
 # Java class files
 *.class
 
