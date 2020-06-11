@@ -2,6 +2,14 @@
 # https://onlinejudge.org/external/122/12210.pdf
 
 def match(b, s, bachelors, spinsters):
+	if b <= s:
+		return 0, 0
+	else:
+		bachelors.sort()
+		return b - s, bachelors[0] 
+
+
+def match_tle(b, s, bachelors, spinsters):
 	bachelors.sort(reverse=True)
 	spinsters.sort(reverse=True)
 	# print(b, bachelors)
