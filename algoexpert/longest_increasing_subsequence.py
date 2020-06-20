@@ -1,6 +1,7 @@
 from bisect import bisect
 
-def longestIncreasingSubsequence(array):
+# O(n^2) time | O(n) space
+def longest_increasing_subsequence_n2(array):
 	n = len(array)
 	lis = [0] * n
 	prev = [0] * n
@@ -25,10 +26,39 @@ def longestIncreasingSubsequence(array):
 	return result
 
 
-if __name__ == "__main__":
-#	array = [-7, 10, 9, 2, 3, 8, 8, 1]
-	array = [-7, 10, 9, 2, 3, 8, 8, 1, 2, 3, 4]
-# 	array = [5, 7, -24, 12, 10, 2, 3, 12, 5, 6, 35]
+# O(nlgn) time | O(n) space
+def longest_increasing_subsequence_nlgn(array):
+	n = len(array)
+	sequences = [None] * n
+	indices = [None] * (n + 1)
+	length = 0
+	for i, num in enumerate(array):
+		j = binary_search(1, length, num, indices, array)
+		sequences[i] = indices[j - 1]
+		indices[j] = i
+		length = max(length, j)
+	return build_sequence(array, sequences, indices[length])
+	
+def binary_search(left, right, num, indices, array):
+	while left <= right:
+		mid = (left + right) // 2
+		if array[indices[mid]] < num:
+			left = mid + 1
+		else:
+			right = mid - 1
+	return left
+
+def build_sequence(array, sequences, last):
+	sequence = []
+	p = last
+	while p is not None:
+		sequence.append(array[p])
+		p = sequences[p]
+	return list(reversed(sequence))
+
+
+# O(nlgn) time | O(n) space
+def longest_increasing_subsequence_nlgn_custom(array):
 	n = len(array)
 	L = [array[0]]
 	indices = [0]
@@ -52,5 +82,14 @@ if __name__ == "__main__":
 	lis = []
 	while len(stack) > 0:
 		lis.append(stack.pop())
-	print(lis)
+	return lis
 
+
+if __name__ == "__main__":
+#	array = [-7, 10, 9, 2, 3, 8, 8, 1]
+#	array = [-7, 10, 9, 2, 3, 8, 8, 1, 2, 3, 4]
+	array = [5, 7, -24, 12, 10, 2, 3, 12, 5, 6, 35]
+	print(longest_increasing_subsequence_n2(array))
+	print(longest_increasing_subsequence_nlgn(array))
+	print(longest_increasing_subsequence_nlgn_custom(array))
+	
