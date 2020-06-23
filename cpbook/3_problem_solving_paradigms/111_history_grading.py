@@ -17,20 +17,21 @@ if __name__ == "__main__":
 	while True:
 		try:
 			n = int(input())
-			events = [int(x) for x in input().split()]
+			ranking = [int(x) for x in input().split()]
+			events = [0] * n
+			for i in range(n):
+				events[ranking[i] - 1] = i + 1
 			order = {}
 			for i, e in enumerate(events):
 				order[e] = i
-			print(f"events={events}")
-			print(f"order={order}")
-			print("---")
-			for i in range(1, n):
-				students = [int(x) for x in input().split()]
+			while True:
+				ranking = [int(x) for x in input().split()]
+				students = [0] * n
+				for i in range(n):
+					students[ranking[i] - 1] = i + 1
 				array = []
 				for s in students:
 					array.append(order[s])
-				print(f"students={students}")
-				print(f"array={array}")
 				print(longest_increasing_subsequence(array))
 		except EOFError:
 			break
