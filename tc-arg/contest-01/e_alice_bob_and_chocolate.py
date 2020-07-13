@@ -18,8 +18,12 @@ def play(choco):
 		elif bob == 0:
 			bob = choco.pop()
 			b += 1
-		alice -= 1
-		bob -= 1
+		if alice >= bob:
+			alice -= bob
+			bob = 0
+		else:
+			bob -= alice
+			alice = 0
 	return a, b
 		
 
