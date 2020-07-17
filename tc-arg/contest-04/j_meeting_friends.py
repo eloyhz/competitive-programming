@@ -4,6 +4,8 @@
 
 if __name__ == "__main__":
 	x1, x2, x3 = [int(x) for x in input().split()]
-	midpoint = round((x1 + x2 + x3) / 3)
+	array = [x1, x2, x3]
+	array.sort()
+	midpoint = array[1]
 	min_distance = abs(x1 - midpoint) + abs(x2 - midpoint) + abs(x3 - midpoint)
 	print(min_distance)
