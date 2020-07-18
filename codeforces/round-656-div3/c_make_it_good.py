@@ -20,7 +20,7 @@ def is_non_decreasing(array):
 			return False
 	return True
 
-def make_it_good(array):
+def make_it_good_wa(array):
 	prefix = 0
 	n = len(array)
 	if n > 2:
@@ -33,6 +33,15 @@ def make_it_good(array):
 			dq.popleft()
 			prefix += 1
 	return prefix
+	
+# From editorial https://codeforces.com/blog/entry/80257
+def make_it_good(array):
+	p = len(array) - 1
+	while p > 0 and a[p - 1] >= a[p]:
+		p -= 1
+	while p > 0 and a[p - 1] <= a[p]:
+		p -= 1
+	return p
 		
 if __name__ == "__main__":
 	t = int(input())
