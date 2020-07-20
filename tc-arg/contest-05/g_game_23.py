@@ -2,21 +2,28 @@
 # Game 23
 # https://codeforces.com/group/j1UosVRZar/contest/288184/problem/G
 
+counter = 0
+
+def can_transform(n, m):
+	global counter
+	if n == m:
+		return True
+	elif n > m:
+		return False
+	else:
+		counter += 1
+		if m % 3 == 0 and can_transform(n, m // 3):
+			return True
+		if m % 2 == 0 and can_transform(n, m // 2):
+			return True
+		counter -= 1
+		return False
+
+
 if __name__ == "__main__":
 	n, m = [int(x) for x in input().split()]
-	if n == m:
-		print(0)
-	elif n > m:
-		print(-1)
+	if can_transform(n, m):
+		print(counter)
 	else:
-		counter = 0
-		while m > n:
-			if m % 3 == 0:
-				m //= 3
-			elif m % 2 == 0:
-				m //= 2
-			else:
-				counter = -1
-				break
-			counter += 1
-		print(counter if n == m else -1)
+		print(-1)
+		
