@@ -1,5 +1,9 @@
 # Bear and Big Brother
 # https://codeforces.com/contest/791/problem/A
+#
+# Author: eloyhz
+# Date: Aug/25/2020
+
 
 if __name__ == '__main__':
 	a, b = [int(x) for x in input().split()]

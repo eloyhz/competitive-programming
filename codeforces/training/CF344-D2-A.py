@@ -1,5 +1,8 @@
 # Magnets
 # https://codeforces.com/contest/344/problem/A
+#
+# Author: eloyhz
+# Date: Aug/25/2020
 
 
 if __name__ == '__main__':

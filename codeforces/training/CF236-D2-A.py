@@ -1,5 +1,8 @@
 # Boy or Girl
 # https://codeforces.com/contest/236/problem/A
+#
+# Author: eloyhz
+# Date: Aug/25/2020
 
 
 from collections import Counter

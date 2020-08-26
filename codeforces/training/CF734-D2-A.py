@@ -1,5 +1,8 @@
 # Anton and Danik
 # https://codeforces.com/contest/734/problem/A
+#
+# Author: eloyhz
+# Date: Aug/25/2020
 
 
 if __name__ == '__main__':

@@ -1,5 +1,8 @@
 # Beautiful Matrix
 # https://codeforces.com/contest/263/problem/A
+#
+# Author: eloyhz
+# Date: Aug/25/2020
 
 
 if __name__ == '__main__':

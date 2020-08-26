@@ -1,5 +1,8 @@
 # Shaass and Oskols
 # https://codeforces.com/contest/294/problem/A
+#
+# Author: eloyhz
+# Date: Aug/25/2020
 
 
 if __name__ == '__main__':
