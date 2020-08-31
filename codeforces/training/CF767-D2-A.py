@@ -4,26 +4,32 @@
 # Author: eloyhz
 # Date: Aug/31/2020
 
+import heapq
+
 if __name__ == '__main__':
     n = int(input())
     a = [int(x) for x in input().split()]
     expected = n
     stored = []
+    heapq.heapify(stored)
     for ai in a:
         if ai != expected:
             print()
-            stored.append(ai)
+            heapq.heappush(stored, -ai)
         else:
             print(f'{ai} ', end='')
             expected -= 1
             if not stored:
                 print()
                 continue
-            stored.sort()
-            while stored and expected == stored[-1]:
-                print(f'{stored.pop()} ', end='')
+            while stored:
+                q = -heapq.heappop(stored)
+                if q != expected:
+                    heapq.heappush(stored, -q)
+                    break
+                print(f'{q} ', end='')
                 expected -= 1
             print()
-    stored.sort()
     while stored:
-        print(f'{stored.pop()} ', end='')
+        q = -heapq.heappop(stored)
+        print(f'{q} ', end='')
