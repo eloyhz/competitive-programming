@@ -23,7 +23,7 @@ if __name__ == '__main__':
         for j in range(i + 1, r):
             if are_coprimes(i, j):
                 for k in range(j + 1, r + 1):
-                    if not are_coprimes(i, k):
+                    if are_coprimes(j, k) and not are_coprimes(i, k):
                         found = True
                         break
             if found:
