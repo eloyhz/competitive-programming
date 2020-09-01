@@ -3,6 +3,9 @@
 #
 # Author: eloyhz
 # Date: Sep/01/2020
+#
+# A simple and easy solution:
+# print(s.replace('WUB', ' ').strip())
 
 
 if __name__ == '__main__':
