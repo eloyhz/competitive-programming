@@ -4,6 +4,7 @@
 # Author: eloyhz
 # Date: Sep/02/2020
 #
+# AC with PyPy3 (TLE with Python3)
 
 def invert(num, s):
     nums = list(str(num))
