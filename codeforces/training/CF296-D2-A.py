@@ -17,3 +17,8 @@ if __name__ == '__main__':
     else:
         print('YES')
 
+#   Editorial:
+#   if max(c) <= (n + 1) / 2:
+#       print('YES')
+#   else:
+#       print('NO')
