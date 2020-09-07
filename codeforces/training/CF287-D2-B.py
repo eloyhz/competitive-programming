@@ -5,24 +5,27 @@
 # Date: Sep/07/2020
 #
 
-def can(x, n):
-    return (x + (x - 2) * (x - 1) // 2) >= n
+def is_good(x, n, k):
+    y = k - x + 1
+    return (y + k * (k - 1) // 2 - y * (y - 1) // 2) >= n
+
 
 if __name__ == '__main__':
     n, k = [int(x) for x in input().split()]
-    if not can(k, n):
+    if n == 1:
+        print(0)
+    elif (k + (k - 2) * (k - 1) // 2) < n:
         print(-1)
-    elif n == k:
+    elif k >= n:
         print(1)
     else:
         l = 0
         r = k
-        while r - 1 > l:
+        while r > l + 1:
             m = (l + r) // 2
-            #print(l, m, r)
-            if can(m, n):
+            if is_good(m, n, k):
                 r = m
             else:
                 l = m
-        print(l)
+        print(r)
  
