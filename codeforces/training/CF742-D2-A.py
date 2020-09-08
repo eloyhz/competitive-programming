@@ -5,12 +5,25 @@
 # Date: Sep/01/2020
 
 
-if __name__ == '__main__':
-    n = int(input())
+def solve_tle(n):
     if n == 0:
-        print(1)
+        return 1
     else:
         result = 1
         for i in range(n):
             result = (result * 8) % 10
-        print(result)
+        return result
+
+
+def solve_editorial(n):
+    if n == 0:
+        return 1
+    else:
+        mod = {0: 6, 1: 8, 2: 4, 3: 2}
+        return mod[n % 4]
+
+
+if __name__ == '__main__':
+    n = int(input())
+    print(solve_editorial(n))
+    
