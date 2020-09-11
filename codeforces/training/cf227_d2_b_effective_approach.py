@@ -21,11 +21,7 @@ def find(c, x):
     return 0
 
 
-if __name__ == '__main__':
-    n = int(input())
-    a = [int(x) for x in input().split()]
-    m = int(input())
-    b = [int(x) for x in input().split()]
+def solve(n, a, m, b):
     c = [None] * n
     for i, x in enumerate(a):
         c[i] = (x, i + 1)
@@ -40,5 +36,27 @@ if __name__ == '__main__':
         else:
             vasya += i
             petya += n - i + 1
-    print(vasya, petya)
+    return (vasya, petya)
+
+
+def editorial(n, a, m, b):
+    c = [None] * n
+    for i, x in enumerate(a):
+        c[x - 1] = i + 1
+    vasya = 0
+    petya = 0
+    for x in b:
+        i = c[x - 1]
+        vasya += i
+        petya += n - i + 1
+    return (vasya, petya)
+
+
+if __name__ == '__main__':
+    n = int(input())
+    a = [int(x) for x in input().split()]
+    m = int(input())
+    b = [int(x) for x in input().split()]
+    result = editorial(n, a, m, b)
+    print(result[0], result[1])
 
