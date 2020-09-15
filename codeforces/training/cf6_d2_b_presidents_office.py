@@ -1,10 +1,13 @@
 #
 # Author: eloyhz
-# Date: Sep/14/2020
+# Date: Sep/15/2020
 #
 # Codeforces (CF6-D2-B) - President's Office
 # https://codeforces.com/contest/6/problem/B
 #
+# [RTE] with Python 3
+# [AC] with PyPy 3
+
 
 def mark(room, n, m, x, y, c):
     room[y][x] = '.'
@@ -18,14 +21,8 @@ def mark(room, n, m, x, y, c):
         mark(room, n, m, x + 1, y, c)
 
 
-if __name__ == '__main__':
-    n, m, c = [x for x in input().split()]
-    n = int(n)
-    m = int(m)
-    room = []
+def solve(room, n, m, c):
     president = []
-    for _ in range(n):
-        room.append(list(input()))
     for x in range(m):
         for y in range(n):
             if room[y][x] == c:
@@ -49,6 +46,32 @@ if __name__ == '__main__':
         if x2 < m - 1 and room[y][x2 + 1] != '.':
             deputies += 1
             mark(room, n, m, x2 + 1, y, room[y][x2 + 1])
-    print(deputies)
+    return deputies
 
+
+def solve_editorial(room, n, m, c):
+    adj = set()
+    for i in range(n):
+        for j in range(m):
+            if room[i][j] != c:
+                continue
+            if i > 0 and room[i - 1][j] != c:
+                adj.add(room[i - 1][j])
+            if i < n - 1 and room[i + 1][j] != c:
+                adj.add(room[i + 1][j])
+            if j > 0 and room[i][j - 1] != c:
+                adj.add(room[i][j - 1])
+            if j < m - 1 and room[i][j + 1] != c:
+                adj.add(room[i][j + 1])
+    return len(adj) if '.' not in adj else len(adj) - 1
+        
+
+if __name__ == '__main__':
+    n, m, c = [x for x in input().split()]
+    n = int(n)
+    m = int(m)
+    room = []
+    for _ in range(n):
+        room.append(list(input()))
+    print(solve(room, n, m, c))
 
