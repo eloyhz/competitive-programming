@@ -16,16 +16,14 @@ if __name__ == '__main__':
     a = []
     for _ in range(n):
         k, l = [int(x) for x in input().split()]
-        a.append(Day(k, l))
-    a.sort(reverse=True, key=attrgetter('clients'))
+        a.append((min(k * 2, l) - min(k, l), Day(k, l)))
+    a.sort(reverse=True)
     ans = 0
     factor = 2
     for d in a:
-        if d.products == 0:   # this day there are no products
-            continue
         if f > 0:
             f -= 1
         else:
             factor = 1
-        ans += min(d.clients, d.products * factor)
+        ans += min(d[1].clients, d[1].products * factor)
     print(ans)
