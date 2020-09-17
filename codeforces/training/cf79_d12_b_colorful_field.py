@@ -6,9 +6,10 @@
 # https://codeforces.com/contest/79/problem/B
 #
 
+import bisect
 
-if __name__ == '__main__':
-    n, m, k, t = [int(x) for x in input().split()]
+def solve_mle(n, m, k, t):
+    "Memory Limit Exceded"
     field = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
     for _ in range(k):
         a, b = [int(x) for x in input().split()]
@@ -30,4 +31,24 @@ if __name__ == '__main__':
             print('Kiwis')
         elif field[i][j] == 2:
             print('Grapes')
+
+
+if __name__ == '__main__':
+    n, m, k, t = [int(x) for x in input().split()]
+    wasted = []
+    plants = {0: 'Carrots', 1: 'Kiwis', 2: 'Grapes'}
+    for _ in range(k):
+        a, b = [int(x) for x in input().split()]
+        wasted.append((a, b))
+    wasted.sort()
+    for _ in range(t):
+        i, j = [int(x) for x in input().split()]
+        w = bisect.bisect_left(wasted, (i, j))
+        if w < len(wasted) and wasted[w] == (i, j):
+            print('Waste')
+        else:
+            ans = ((i - 1) * m + (j - 1) - w) % 3
+            print(plants[ans])
+
+
 
