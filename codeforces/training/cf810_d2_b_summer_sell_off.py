@@ -2,7 +2,7 @@
 # Author: eloyhz
 # Date: Sep/17/2020
 #
-# Codeforces (CF79-D12-B) - Colorful Field
+# Codeforces (CF810-D2-B) - Summer sell-off
 # https://codeforces.com/contest/810/problem/B
 #
 
