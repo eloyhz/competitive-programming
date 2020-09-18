@@ -7,8 +7,7 @@
 #
 
 
-if __name__ == '__main__':
-    n, m = [int(x) for x in input().split()]
+def solve_wa(n, m):
     best = 1001
     mat = []
     for _ in range(n):
@@ -26,4 +25,25 @@ if __name__ == '__main__':
         if g > s and d <= best:
             ok = False
             break
-    print(best if ok else -1)
+    return best if ok else -1
+
+
+def solve_editorial(n, m):
+    """
+    The answer is the number of distinct distances, 
+    as one step kills all distances of the minimal length.
+    """
+    sol = set()
+    for _ in range(n):
+        line = input()
+        g = line.find('G')
+        s = line.find('S')
+        if s < g:
+            return -1
+        sol.add(s - g)
+    return len(sol)
+
+
+if __name__ == '__main__':
+    n, m = [int(x) for x in input().split()]
+    print(solve_editorial(n, m))
