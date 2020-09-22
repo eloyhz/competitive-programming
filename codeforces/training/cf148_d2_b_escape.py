@@ -16,7 +16,7 @@ if __name__ == '__main__':
     ans = 0
     dragon, princess = 0, 0
     returning = False
-    while princess < c:
+    while True:
         princess += vp
         if princess >= c:
             break
@@ -25,15 +25,25 @@ if __name__ == '__main__':
         elif returning:
             dragon -= vd
             if dragon <= 0:
-                dragon = 0
+                dragon = -dragon
                 returning = False
                 t = f
         else:
-            dragon += vd
-            if dragon == princess:
-                ans += 1
+            if dragon + vd < princess:
+                dragon += vd
+                continue
+            ans += 1
+            print(f'Catched at: {princess}')
+            a = princess - dragon
+            b = dragon + vd - princess
+            dragon += (a - b)
+            if dragon <= 0:
+                dragon = -dragon
+                returning = False
+                t = f
+            else:
                 returning = True
-#        print(f'{princess = }, {dragon = }, {t = }, {returning = }, {ans = }')
+        print(f'{princess = }, {dragon = }, {t = }, {returning = }, {ans = }')
     print(ans)
         
 
