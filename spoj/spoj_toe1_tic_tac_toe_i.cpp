@@ -9,87 +9,53 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+typedef vector<string> vs;
 
-bool is_valid(vector<string>& board)
+bool is_win(vs& b)
 {
-    int r[3] = {0, 0, 0};
-    int c[3] = {0, 0, 0};
-    int d[2] = {0, 0};
-    int cx = 0;
-    int co = 0;
-    int i, j;
+    return b[0][0] == b[0][1] && b[0][0] == b[0][2] && b[0][0] != '.' ||
+            b[1][0] == b[1][1] && b[1][0] == b[1][2] && b[1][0] != '.' ||
+            b[2][0] == b[2][1] && b[2][0] == b[2][2] && b[2][0] != '.' ||
+            b[0][0] == b[1][0] && b[0][0] == b[2][0] && b[0][0] != '.' ||
+            b[0][1] == b[1][1] && b[0][1] == b[2][1] && b[0][1] != '.' ||
+            b[0][2] == b[1][2] && b[0][2] == b[2][2] && b[0][2] != '.' ||
+            b[0][0] == b[1][1] && b[0][0] == b[2][2] && b[0][0] != '.' ||
+            b[2][0] == b[1][1] && b[2][0] == b[0][2] && b[2][0] != '.';
+}
 
-    for (i = 0; i < 3; i++) {
-        for (j = 0; j < 3; j++) {
-            if (board[i][j] == 'X') {
-                cx++;
+bool is_valid(vs b)
+{
+    queue<pair<vs, char>> q;
+    vs u = {"...", "...", "..."};
+    q.push({u, 'X'});
+    while (!q.empty())  {
+        auto x = q.front();
+        q.pop();
+        u = x.first;
+        char turn = x.second;
+        if (u == b) {
+            return true;
+        }
+        if (is_win(u))  {
+            continue;
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (u[i][j] == '.' && b[i][j] == turn)  {
+                    auto v = u;
+                    v[i][j] = turn;
+                    q.push({v, turn == 'X' ? 'O' : 'X'});
+                }
             }
-            else if (board[i][j] == 'O')    {
-                co++;
-            }
         }
     }
-    // cout << "cx = " << cx << ", co = " << co << endl;
-    if (cx < co || cx > co + 1) {
-        return false;
-    }
-    for (i = 0; i < 3; i++) {
-        for (j = 0; j < 3; j++) {
-            if (board[i][j] == '.') {
-                continue;
-            }
-            if (i == j) {
-                d[0] += board[i][j] == 'X' ? 1 : -1;
-                d[1] += board[2 - i][i] == 'X' ? 1 : -1;
-            }
-            r[i] += board[i][j] == 'X' ? 1 : -1;
-        }
-    }
-
-    for (j = 0; j < 3; j++) {
-        for (i = 0; i < 3; i++) {
-            if (board[i][j] == '.') {
-                continue;
-            }
-            c[j] += board[i][j] == 'X' ? 1 : -1;
-        }
-    }
-    /*
-    cout << "r = ";
-    for (i = 0; i < 3; i++) {
-        cout << r[i] << " ";
-    }
-    cout << endl;
-    cout << "c = ";
-    for (i = 0; i < 3; i++) {
-        cout << c[i] << " ";
-    }
-    cout << endl;
-    cout << "d = ";
-    for (i = 0; i < 2; i++) {
-        cout << d[i] << " ";
-    }
-    cout << endl;
-    */
-    int count = 0;
-    for (i = 0; i < 3; i++) {
-        if (abs(r[i]) == 3) {
-            count++;
-        }
-        if (abs(c[i]) == 3) {
-            count++;
-        }
-        if (i < 2 && abs(d[i]) == 3)    {
-            count++;
-        }
-    }
-    return count <= 1;
+    return false;
 }
 
 int main()
 {
     int n;
-    vector<string> board;
+    vs board;
     string s;
 
     cin >> n;
@@ -104,3 +70,23 @@ int main()
    }
    return 0;
 } 
+
+
+/*
+Be careful when you have won with this case:
+
+3
+XXO
+OOX
+OXX
+
+XXX
+OO.
+..O
+
+XXX
+OOO
+...
+
+*/
+
