@@ -7,37 +7,26 @@ using namespace std;
 
 bool match_name(string& filename, string& submitted)
 {
-    string ext = "";
-    int i = submitted.size() - 1;
-    bool has_ext = false;
-    while (i >= 0)   {
-        if (submitted[i] == '.')    {
-            i--;
-            has_ext = true;
-            break;
+    auto i = submitted.find(".");
+    
+    if (i != string::npos)  {
+        string ext = submitted.substr(i);
+        if (ext != ".c" && ext != ".cpp" && ext != ".java" && ext != ".py") {
+            return false;
         }
+        i--;
+    }
+    else    {
+        i = submitted.size() - 1;
+    }
+    string name = "";
+    while (i >= 0)   {
         if (!isalpha(submitted[i])) {
             break;
         }
-        ext += submitted[i--];
+        name += submitted[i--];
     }
-    reverse(ext.begin(), ext.end());
-    if (has_ext && ext != "c" && ext != "cpp" && ext != "java" && ext != "py") {
-        return false;
-    }
-    string name = "";
-    if (has_ext)    {
-        while (i >= 0)   {
-            if (!isalpha(submitted[i])) {
-                break;
-            }
-            name += submitted[i--];
-        }
-        reverse(name.begin(), name.end());
-    }
-    else    {
-        name = ext;
-    }
+    reverse(name.begin(), name.end());
     return name == filename;
 }
 
