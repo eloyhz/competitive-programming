@@ -14,22 +14,20 @@ int main()
 {
     int n, m;
     cin >> n >> m;
-    int x[n + 1], y[n + 1];
+    int owe[n + 1];
     int debt = 0;
 
-    fill(x, x + n + 1, 0);
-    fill(y, y + n + 1, 0);
+    fill(owe, owe + n + 1, 0);
     while (m--) {
         int a, b, c;
         cin >> a >> b >> c;
-        x[b] += c;
-        y[a] += c;
+        owe[a] += c;
+        owe[b] -= c;
     }
     for (int i = 1; i <= n; i++)    {
-        int d = min(x[i], y[i]);
-        x[i] -= d;
-        y[i] -= d;
-        debt += x[i];
+        if (owe[i] > 0) {
+            debt += owe[i];
+        }
     }
     cout << debt << endl;
     return 0;
