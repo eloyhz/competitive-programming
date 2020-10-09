@@ -20,7 +20,7 @@ int main()
             ones.push_back(i);
         }
     }
-    int ans = 1;
+    long long ans = ones.size() ? 1 : 0; 
     for (int i = 1; i < ones.size(); ++i)  {
         ans *= ones[i] - ones[i - 1];
     }
