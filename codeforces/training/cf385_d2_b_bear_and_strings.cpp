@@ -16,7 +16,7 @@ int main()
     string s;
     cin >> s;
     int n = s.size();
-    for (int i = 0; i < n - 4; i++) {
+    for (int i = 0; i <= n - 4; i++) {
         bool found = false;
         for (int j = i + 3; j < n; j++) {
             if (!found && s[j - 3] == 'b' && s[j - 2] == 'e'
