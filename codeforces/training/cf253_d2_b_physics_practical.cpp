@@ -12,16 +12,16 @@ using namespace std;
 
 int main()
 {
-    int n;
+    unsigned int n;
 
     cin >> n;
-    int c[n];
-    for (int i = 0; i < n; i++) {
+    unsigned int c[n];
+    for (unsigned int i = 0; i < n; i++) {
         cin >> c[i];
     }
     sort(c, c + n);
-    int i = 0;
-    int j = n - 1;
+    unsigned int i = 0;
+    unsigned int j = n - 1;
     int ans = 0;
     while (i != j && i < n - 1 && j >= 1)  {
         int x = c[i];
