@@ -23,7 +23,7 @@ int main()
     }
     else {
         int count = 0;
-        while (n != m)  {
+        while (n < m)  {
             if (m % 2 == 0) {
                 m /= 2;
             }
@@ -32,7 +32,7 @@ int main()
             }
             count++;
         }
-        cout << count << "\n";
+        cout << count + (n - m) << "\n";
     }
     return 0;
 }
