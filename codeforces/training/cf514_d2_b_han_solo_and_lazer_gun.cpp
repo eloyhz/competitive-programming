@@ -30,7 +30,7 @@ int main()
     bool d[n];
     fill(d, d + n, false);
     int ans = 0;
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < n; i++) {
         if (d[i]) 
             continue;
         d[i] = true;
