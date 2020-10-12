@@ -12,6 +12,7 @@ using namespace std;
 
 int main()
 {
+    const int MAX = 5000;
     int n;
 
     ios::sync_with_stdio(0);
@@ -21,28 +22,22 @@ int main()
     freopen("output.txt","w",stdout);
 
     cin >> n;
-    vector<int> c;
+    int c[MAX + 1];
+    fill(c, c + MAX + 1, 0);
     for (int i = 0; i < n; i++) {
         int ci; cin >> ci;
-        c.push_back(ci);
+        c[ci]++;
     }
-    sort(c.begin(), c.end());
-    int i = 0;
-    int j = n - 1;
-    int ans = 0;
-    while (i != j && i < n - 1 && j >= 1)  {
-        int x = c[i];
-        int y = c[j];
-        if (2 * x >= y) {
-            break;
+    int ans = INT_MAX;
+    for (int m = 1; m <= MAX; ++m) {
+        int count = 0;
+        for (int k = 1; k < m; ++k) {
+            count += c[k];
         }
-        if (c[i + 1] - x > y - c[j - 1])  {
-            i++;
+        for (int k = 2 * m + 1; k <= MAX; ++k)  {
+            count += c[k];
         }
-        else    {
-            j--;
-        }
-        ans++;
+        ans = min(ans, count);
     }
     cout << ans << "\n";
     return 0;
