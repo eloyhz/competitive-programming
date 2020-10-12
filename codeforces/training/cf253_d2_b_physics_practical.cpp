@@ -12,16 +12,23 @@ using namespace std;
 
 int main()
 {
-    unsigned int n;
+    int n;
+
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
 
     cin >> n;
-    unsigned int c[n];
-    for (unsigned int i = 0; i < n; i++) {
-        cin >> c[i];
+    vector<int> c;
+    for (int i = 0; i < n; i++) {
+        int ci; cin >> ci;
+        c.push_back(ci);
     }
-    sort(c, c + n);
-    unsigned int i = 0;
-    unsigned int j = n - 1;
+    sort(c.begin(), c.end());
+    int i = 0;
+    int j = n - 1;
     int ans = 0;
     while (i != j && i < n - 1 && j >= 1)  {
         int x = c[i];
