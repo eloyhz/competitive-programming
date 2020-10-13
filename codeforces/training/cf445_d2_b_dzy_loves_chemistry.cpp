@@ -12,7 +12,36 @@ using namespace std;
 const int MAX = 50;
 
 int n, m;
+int numcc;
+int cc[MAX + 1];
+bool visited[MAX + 1];
 vector<int> g[MAX + 1];
+
+void dfs(int u)
+{
+    visited[u] = true;
+    cc[u] = numcc;
+    for (auto v : g[u]) {
+        if (visited[v]) {
+            continue;
+        }
+        dfs(v);
+    }
+}
+
+int compute_cc()
+{
+    numcc = 0;
+    for (int u = 1; u <= n; u++)    {
+        if (visited[u]) {
+            continue;
+        }
+        numcc++;
+        dfs(u);
+    }
+    return numcc;
+}
+    
 
 int main()
 {
@@ -22,30 +51,8 @@ int main()
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    int p[n];
-    for (int i = 0; i < n; ++i) {
-        p[i] = i + 1;
-    }
-    vector<int> d;
-    do  {
-        int danger = 1;
-        set<int> tube;
-        tube.insert(p[0]);
-        for (int i = 1; i < n; ++i) {
-            int u = p[i];
-            for (auto v : g[u]) {
-                if (tube.find(v) != tube.end()) {
-                    danger *= 2;
-                    break;
-                }
-            }
-            tube.insert(u);
-        }
-        d.push_back(danger);
-    }   while (next_permutation(p, p + n));
-    int max_d = *max_element(d.begin(), d.end());
-    int ans = count(d.begin(), d.end(), max_d);
-    cout << ans << endl;
+    int v = compute_cc();
+    cout << (1LL << (n - v)) << endl;
     return 0;
 }
 
