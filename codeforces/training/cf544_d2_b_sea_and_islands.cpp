@@ -24,7 +24,13 @@ int main()
         max_k = half * half + (half + 1) * (half + 1);
     }
     if (k == 0) {
-        cout << "YES\nS\n";
+        cout << "YES\n";
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                cout << "S";
+            }
+            cout << "\n";
+        }
     }
     else if (k > max_k)  {
         cout << "NO\n";
