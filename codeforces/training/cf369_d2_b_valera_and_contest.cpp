@@ -13,43 +13,27 @@ using namespace std;
 int main()
 {
     int n, k, l, r, sall, sk;
+    vector<int> a;
     cin >> n >> k >> l >> r >> sall >> sk;
-    if (sk % k == 0)    {
-        int ai = sk / k;
-        for (int i = 0; i < k; i++)
-            cout << ai << " ";
+    
+    int rem = sk % k;
+    for (int i = 0; i < k; i++) {
+        int ai = sk / k + (rem > 0);
+        rem--;
+        a.push_back(ai);
     }
-    else    {
-        int aj = sk % k;
-        int tk = k - 1;
-        if (aj < l) {
-            aj += k;
-            tk--;
+    if (k != n) {
+        sk = sall - sk;
+        k = n - k;
+        rem = sk % k;
+        for (int i = 0; i < k; i++) {
+            int ai = sk / k + (rem > 0);
+            rem--;
+            a.push_back(ai);
         }
-        int ai = (sk - aj) / k;
-        for (int i = 0; i < tk; i++)
-            cout << ai << " ";
-        cout << aj << " ";
     }
-    sk = sall - sk;
-    k = n - k;
-    if (sk % k == 0)    {
-        int ai = sk / k;
-        for (int i = 0; i < k; i++)
-            cout << ai << " ";
-    }
-    else    {
-        int aj = sk % k;
-        int tk = k - 1;
-        if (aj < l) {
-            aj += k;
-            tk--;
-        }
-        int ai = (sk - aj) / k;
-        for (int i = 0; i < tk; i++)
-            cout << ai << " ";
-        cout << aj << " ";
-    }
+    for (auto x : a)
+        cout << x << " ";
     cout << endl;
 
     return 0;
