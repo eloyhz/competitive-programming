@@ -19,9 +19,9 @@ int largest;
 
 int find(int x)
 {
-    while (x != p[x])
-        x = p[x];
-    return x;
+    if (x != p[x])
+        p[x] = find(p[x]);
+    return p[x];
 }
 
 void join(int a, int b)
@@ -30,19 +30,13 @@ void join(int a, int b)
     b = find(b);
     if (a == b)
         return;
+    if (r[a] < r[b])
+        swap(a, b);
     if (r[a] == r[b])
         r[a]++;
-    if (r[a] > r[b])    {
-        p[b] = a;
-        size[a] += size[b];
-        largest = max(largest, size[a]);
-    }
-    else    {
-        p[a] = b;
-        size[b] += size[a];
-        largest = max(largest, size[b]);
-    }
-
+    p[b] = a;
+    size[a] += size[b];
+    largest = max(largest, size[a]);
 }
 
 void solve()
