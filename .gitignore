@@ -54,3 +54,6 @@ __pycache__/
 *.exe
 *.out
 *.app
+*.jar
+
+META-INF/
