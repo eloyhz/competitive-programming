@@ -7,22 +7,30 @@ Fecha: 29/04/2021
 
 */
 
-#include "AdivinaElNumero.h"
+// #include "AdivinaElNumero.h"
 
-#include <bits/stdc++.h>
-using namespace std;
-
+// Iterativo
 void adivina(long long a, long long b)	{
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	long long x = a + (b - a) / 2;
-	long long p;
-
-	while (p = pista(x))	{
-		if (p < 0)
-			b = x;
+	while (true)	{
+		long long x = a + (b - a) / 2;
+		long long p = pista(x);
+		if (p == 0)
+			break;
+		else if (p < 0)
+			b = x - 1;
 		else
-			a = x;
-		x = a + (b - a) / 2;
+			a = x + 1;
 	}
+}
+
+// Recursivo
+void adivina(long long a, long long b)	{
+	long long x = a + (b - a) / 2;
+	long long p = pista(x);
+	if (p == 0)
+		return;
+	else if (p < 0)
+		adivina(a, x - 1);
+	else
+		adivina(x + 1, b);
 }
