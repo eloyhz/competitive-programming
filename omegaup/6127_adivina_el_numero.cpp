@@ -7,7 +7,7 @@ Fecha: 29/04/2021
 
 */
 
-// #include "AdivinaElNumero.h"
+#include "AdivinaElNumero.h"
 
 // Iterativo
 void adivina(long long a, long long b)	{
