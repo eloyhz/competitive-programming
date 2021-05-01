@@ -15,7 +15,6 @@ using namespace std;
 const double MIN_DIST = 0.001;
 const double EPS = 0.000001;
 
-
 double calculate_force(vector<int> x, int current, double m)   {
     double left_force = 0, right_force = 0;
     int n = x.size();
@@ -31,22 +30,29 @@ double calculate_force(vector<int> x, int current, double m)   {
     return right_force - left_force;
 }
 
+double calculate_force_simpler(vector<int> x, double m)   {
+    double force = 0;
+    int n = x.size();
+
+    for (int i = 0; i < n; i++) 
+        force += 1 / (x[i] - m);
+    return force;
+}
+
 double search_position(vector<int> x, int index)    {
-    double left = x[index] + MIN_DIST;
-    double right = x[index + 1] - MIN_DIST;
+    double left = x[index];
+    double right = x[index + 1];
     double mid;
 
-    while (right - left > MIN_DIST)    {
+    for (int i = 0; i < 25; i++)    {
         mid = (left + right) / 2;
         double force = calculate_force(x, index, mid);
-        if (fabs(force) < EPS)
-            return mid;
         if (force < 0)
             left = mid;
         else
             right = mid;
     }
-    return mid;
+    return left;
 }
 
 void solve(vector<int> x)   {
@@ -73,6 +79,7 @@ int main()  {
     vector<int> x(n);
     for (int i = 0; i < n; i++)
         cin >> x[i];
+    sort(x.begin(), x.end());
     solve(x);
 
     return 0;
