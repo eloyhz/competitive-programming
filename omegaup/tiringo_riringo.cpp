@@ -46,6 +46,26 @@ void solve_t2(int n, int q, vpii& ropes) {
     }
 }
 
+// O(N + N*log(N) + Q*log(N)) time | O(n) space
+void solve_t3(int n, int q, vpii& ropes) {
+    vi a(n);
+    vi b(n);
+
+    for (int i = 0; i < n; i++) {
+        a[i] = ropes[i].first;
+        b[i] = ropes[i].second;
+    }
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+    while (q--) {
+        int qi;
+        cin >> qi;
+        int count_a = upper_bound(a.begin(), a.end(), qi) - a.begin();
+        int count_b = b.end() - upper_bound(b.begin(), b.end(), qi - 1);
+        cout << min(count_a, count_b) << "\n";
+    }
+}
+
 int main()  {
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -55,6 +75,6 @@ int main()  {
     vpii ropes(n);
     for (int i = 0; i < n; i++)    
         cin >> ropes[i].first >> ropes[i].second;
-    solve_t2(n, q, ropes);
+    solve_t3(n, q, ropes);
     return 0;
 }
