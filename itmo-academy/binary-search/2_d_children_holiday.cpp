@@ -1,81 +1,75 @@
 /*
 
 ITMO Academy - Binary Search for Answer
-2.D. Children Holiday [WA]
+2.D. Children Holiday [AC]
 https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/D
 
 Date: 05/05/21
 
 */
-
 #include <bits/stdc++.h>
 
 using namespace std;
+
+typedef long long ll;
 
 struct assistant    {
     int t, z, y;
 };
 
-bool good(int t, int m, vector<assistant>& a, vector<int>& r)   {
-    int b = 0;
-    int n = a.size();
-    vector<int> s(n);
-    for (int i = 0; i < n; i++)  {
-        int ti = a[i].t, zi = a[i].z, yi = a[i].y;
-        int wi = ti * zi + yi;
-        int bi = zi * t / wi;
-        bi += min(zi, (t % wi) / ti);
-        if (b + bi > m)    {
-            s[i] = m - b;
-            b = m;
-            break;
+int n, m;
+vector<assistant> a;
+vector<int> r;
+
+bool good(ll T) {
+    int total_ballons = 0;
+    vector<int> x(n);
+    for (int i = 0; i < n; i++) {
+        int cycle = a[i].t * a[i].z + a[i].y;
+        ll full_cycles = T / cycle; // amount of cycles with rest in T
+        ll last_cycle = T % cycle; // last cycle without rest
+        int balloons_with_rest = full_cycles * a[i].z;
+        int balloons_without_rest = min(last_cycle / a[i].t, (ll)a[i].z);
+        int balloons =  balloons_with_rest + balloons_without_rest;
+        if (total_ballons + balloons >= m)  {
+            x[i] = m - total_ballons;
+            r = x;
+            return true;
         }
-        s[i] = bi;
-        b += bi;
+        x[i] = balloons;
+        total_ballons += balloons;
     }
-    if (b < m)
-        return false;
-    r = s;
-    return true;
+    return false;
 }
 
 int main()  {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    int m, n;
-    cin >> m >> n;  // m balloons, n assistants
-    vector<assistant> a(n);
-    vector<int> r(n);
+    cin >> m >> n;
+    a.resize(n);
+    r.resize(n);
     for (int i = 0; i < n; i++)
         cin >> a[i].t >> a[i].z >> a[i].y;
-    int left = -1;
-    int right = 1;
-    while (!good(right, m, a, r))
+    ll left = -1;
+    ll right = 1;
+    while (!good(right))
         right *= 2;
     while (right > left + 1)    {
-        int mid = (left + right) / 2;
-        if (good(mid, m, a, r))
+        ll mid = (left + right) / 2;
+        if (good(mid))
             right = mid;
         else
             left = mid;
     }
-/*
-    cout << "left = " << left << "\n";
-    cout << "good(left) = " << good(left, m, a, r) << endl; 
-    for (auto c : r)
-        cout << c << " ";
-    cout << "right = " << right << "\n";
-    cout << "good(right) = " << good(right, m, a, r) << endl; */
     cout << right << "\n";
-    for (auto c : r)
-        cout << c << " ";
+    for (int x : r) 
+        cout << x << " ";
     cout << "\n";
     return 0;
 }
 
 /*
-
 
 20 2
 2 5 1
@@ -89,18 +83,9 @@ int main()  {
 2 2 5
 1 1 10
 
-t = 2, z = 2, y = 5
-assistant 1 inflates 1 balloon in 2 mins and rests 5 mins after 2 balloons
-2 * 2 + 5 = 9
-
-t = 1, z = 1, y = 10
-assistant 2 inflates 1 balloon in 1 mins and rests 10 mins after 1 balloons
-1 * 1 + 10 = 11
-
 
 4 2
 2 2 5
 1 1 10
-
 
 */
