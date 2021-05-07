@@ -4,7 +4,7 @@ ITMO Academy - Binary Search for Answer
 2.F. String Game [WA5]
 https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/F
 
-Date: 06/05/21
+Date: 07/05/21
 
 */
 
@@ -17,7 +17,27 @@ int n;
 vector<int> a;
 vector<bool> deleted;
 
+// Search T in P (simpler)
 bool good(int l)    {
+    set<int> d;
+    for (int i = 1; i <= l; i++)
+        d.insert(a[i]);
+    int j = 0;
+    int m = p.size();
+    for (int i = 0; i < n; i++) {
+        if (d.find(i + 1) != d.end())
+            continue;
+        if (t[i] == p[j])
+            j++;
+        if (j == m)
+            return true;
+    }
+    return false;
+}
+
+
+// Search P in T (failing, overcomplicated)
+bool good0(int l)    {
     fill(deleted.begin(), deleted.end(), false);
     for (int i = 1; i <= l; i++)
         deleted[a[i]] = true;
