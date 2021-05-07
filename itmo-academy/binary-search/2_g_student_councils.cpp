@@ -1,7 +1,7 @@
 /*
 
 ITMO Academy - Binary Search for Answer
-2.G. Student Councils [WA17]
+2.G. Student Councils [AC]
 https://codeforces.com/edu/course/2/lesson/6/2/practice/contest/283932/problem/G
 Date: 07/05/21
 
@@ -16,8 +16,16 @@ typedef long long ll;
 int k, n;
 vector<int> a;
 
+// From hints & comments in forum
+bool good(ll C)    {
+    ll slots = C * k;
+    for (int i = 1; i <= n; i++)
+        slots -= min(C, (ll)a[i]);
+    return slots <= 0;
+}
+
 // Can be formed C councils ?
-bool good(int C)    {
+bool good_wa(int C)    {
     int students_per_council = 0;
     int current_count = 0;
 
@@ -41,7 +49,7 @@ int main()  {
         cin >> a[i];
         s += a[i];
     }
-    sort(a.begin(), a.end());
+    // sort(a.begin(), a.end());
 /*
     for (int i = 1; i <= s / k + 1; i++)
         cout << "i = " << i << ", good(i) = " << good(i) << endl;
