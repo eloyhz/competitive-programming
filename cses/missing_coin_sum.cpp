@@ -1,7 +1,7 @@
 /*
 
-CSES - Stick Lengths
-https://cses.fi/problemset/task/1074
+CSES - Missing Coin Sum
+https://cses.fi/problemset/task/2183/
 Date: 13/05/21
 
 Reference: https://www.youtube.com/watch?v=l6rjY30bwI8
