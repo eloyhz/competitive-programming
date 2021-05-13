@@ -1,6 +1,6 @@
 /*
 
-CSES - Stick Lengths [WA]
+CSES - Stick Lengths
 https://cses.fi/problemset/task/1074
 Date: 13/05/21
 
@@ -16,16 +16,14 @@ int main()  {
 
     int n;
     cin >> n;
-    long long sum = 0;
     vector<int> p(n);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         cin >> p[i];
-        sum += p[i];
-    }
-    long long average = sum / n;
+    sort(p.begin(), p.end());
     long long ans = 0;
+    int middle = p[n / 2];
     for (int x : p)
-        ans += abs(x - average);
+        ans += abs(x - middle);
     cout << ans << "\n";
     return 0;
 }
