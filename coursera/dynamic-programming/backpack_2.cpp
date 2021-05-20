@@ -1,7 +1,7 @@
 /*
 
 Coursera - Dynamic Programming
-Problem: Backpack 3
+Problem: Backpack 2
 Description: https://hackmd.io/@eloyhz/B1GVdeNFd
 
 Date: 20/05/2021
