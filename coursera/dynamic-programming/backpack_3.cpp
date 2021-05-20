@@ -1,51 +1,54 @@
 /*
 
 Coursera - Dynamic Programming
-Problem: Backpack 3
-Description: https://hackmd.io/@eloyhz/B1GVdeNFd
+Problem: Backpack 3 (Fractional Knapsack)
+Description: https://hackmd.io/@eloyhz/SJ5xkVVYd
 
 Date: 20/05/2021
   
 */
 
+
 #include <bits/stdc++.h>
 
 using namespace std;
+const int INF = 1e9 + 1;
 
 int main()  {
     int s;  // weight limit
-    int n;  // amount of bars
+    int n;  // number of bars
+
     cin >> s >> n;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i++)
-        cin >> a[i];
-    vector<vector<bool>> dp(n + 1, vector<bool>(s + 1, false));
-    dp[0][0] = true;
-    for (int i = 1; i <= n; i++)
-        for (int w = 0; w <= s; w++)    {
-            dp[i][w] = dp[i - 1][w];
-            if (w - a[i] >= 0)  {
-                dp[i][w] = dp[i][w] || dp[i - 1][w - a[i]];
-            }
+    vector<int> w(n);   //  weights of the bars
+    vector<int> c(n);   //  costs of the bars
+    for (int i = 0; i < n; i++)
+        cin >> w[i];
+    for (int i = 0; i < n; i++)
+        cin >> c[i];
+    vector<pair<double, int>> ratios(n);
+    for (int i = 0; i < n; i++)
+        ratios[i] = {w[i] ? c[i]/(double)w[i] : -INF, i};
+    sort(ratios.begin(), ratios.end(), greater<pair<double,int>>());
+    /*
+    for (int i = 0; i < n; i++)
+        cout << c[ratios[i].second] << ", " 
+            << w[ratios[i].second] << ", " 
+            << ratios[i].first << "\n";
+    */
+    double ans = 0;
+    int weight = s;
+    for (int i = 0; i < n; i++) {
+        int current_weight = w[ratios[i].second];
+        int current_cost = c[ratios[i].second];
+        if (weight - current_weight >= 0)   {
+            ans += current_cost;
+            weight -= current_weight;
         }
-    int ans = 0;
-    for (int w = s; w >= 0; --w)
-        if (dp[n][w])   {
-            ans = w;
+        else    {
+            ans += current_cost * weight / (double)current_weight;
             break;
         }
-    vector<int> sol;
-    int w = ans;
-    for (int i = n; i >= 1; --i)    {
-        if (w - a[i] >= 0 && dp[i - 1][w - a[i]])   {
-            sol.push_back(i);
-            w -= a[i];
-        }
     }
-    cout << ans << " " << sol.size() << "\n";
-    for (int i = sol.size() - 1; i >= 0; --i)
-        cout << sol[i] << " ";
-    cout << "\n";
-    
+    cout << ceil(ans) << "\n";
     return 0;
 }
