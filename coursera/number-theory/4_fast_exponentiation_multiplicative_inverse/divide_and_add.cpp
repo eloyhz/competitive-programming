@@ -1,3 +1,17 @@
+/*
+
+Coursera - Competitive Programming for Beginners
+https://www.coursera.org/learn/competitive-programming-for-beginners/
+
+Week 2: Number Theory
+Section 4: Fast Exponentiation, Multiplicative Inverse
+Problem: Divide and Add
+Description: https://hackmd.io/@eloyhz/B1sUNIpK_
+
+Date: 27/05/2021
+  
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -12,12 +26,16 @@ ll fastpow(ll base, ll exp, ll mod)  {
     return (tmp * tmp) % mod;
 }
 
+ll norm(ll d, ll mod)   {
+    return ((d % mod) + mod) % mod;
+}
+
 ll madd(ll a, ll b, ll mod)  {
-    return ((a % mod) + (b % mod)) % mod;
+    return (norm(a, mod) + norm(b, mod)) % mod;
 }
 
 ll mmul(ll a, ll b, ll mod)  {
-    return ((a % mod) * (b % mod)) % mod;
+    return (norm(a, mod) * norm(b, mod)) % mod;
 }
 
 ll gcd(ll a, ll b) // assume that a is non-negative and b is positive

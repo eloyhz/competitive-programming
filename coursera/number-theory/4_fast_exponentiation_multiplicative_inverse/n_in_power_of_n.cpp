@@ -1,3 +1,17 @@
+/*
+
+Coursera - Competitive Programming for Beginners
+https://www.coursera.org/learn/competitive-programming-for-beginners/
+
+Week 2: Number Theory
+Section 4: Fast Exponentiation, Multiplicative Inverse
+Problem: N in power of N
+Description: https://hackmd.io/@eloyhz/By-II86Fu
+
+Date: 27/05/2021
+  
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
