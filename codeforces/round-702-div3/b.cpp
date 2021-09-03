@@ -1,13 +1,28 @@
 // Codeforces Round #702 (Div. 3)
-// B. Balanced Remainders [WA]
+// B. Balanced Remainders [AC/editorial]
 // https://codeforces.com/contest/1490/problem/B
 // 03-09-2021
 
 #include <bits/stdc++.h>
 
 using namespace std;
+using ll = long long;
 
-void solve()    {
+#define DBG(x) cerr << #x << " = " << (x) << endl
+#define DBGY(x) cerr << #x << " = " << (x) << " , "
+#define LINE cerr << "================" << endl
+
+template <typename T>
+ostream &operator << (ostream &os, const vector<T>& v)  {
+    os << "[";
+    for (int i = 0; i < v.size(); i++)  {
+        if (i > 0) os << ", ";
+        os << v[i];
+    }
+    return os << "]";
+}
+
+void solve_wa()    {
     int n;
     cin >> n;
     vector<int> a(n);
@@ -32,6 +47,33 @@ void solve()    {
             ans += c[imax] - m;
         cout << ans << "\n";
     }
+}
+
+void solve()    {
+    int n;
+    cin >> n;
+    vector<int> c(3);
+    for (int i = 0; i < n; ++i) {
+        int a;
+        cin >> a;
+        c[a % 3]++;
+    }
+    int ans = 0;
+    int m = n / 3;
+    while (true)  {
+        bool balanced = true;
+        for (int i = 0; i < 3; i++) {
+            if (c[i] > m)   {
+                balanced = false;
+                c[i]--;
+                c[(i + 1) % 3]++;
+                ans++;
+            }
+        } 
+        if (balanced)
+            break;
+    }
+    cout << ans << "\n";
 }
 
 int main()  {
