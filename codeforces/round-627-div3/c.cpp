@@ -1,4 +1,4 @@
-// Codeforces Round #693 (Div. 3)
+// Codeforces Round #627 (Div. 3)
 // C. Frog Jumps
 // https://codeforces.com/contest/1324/problem/C
 // 13-09-2021
