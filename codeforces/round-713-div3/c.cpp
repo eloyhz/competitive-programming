@@ -1,5 +1,5 @@
 // Codeforces Round #713 (Div. 3)
-// C. A-B Palindrome [WA]
+// C. A-B Palindrome
 // https://codeforces.com/contest/1512/problem/C
 // 14-09-2021
 
@@ -69,7 +69,9 @@ void solve()    {
                 ok = false;
             }
         }
-        else if (s[i] == '?' && s[n - i - 1] == '?')    {
+    }
+    for (int i = 0; ok && i < n; i++) {
+        if (s[i] == '?' && s[n - i - 1] == '?')    {
             if (i == n - i - 1) {
                 if (a >= 1)  {
                     s[i] = '0';
