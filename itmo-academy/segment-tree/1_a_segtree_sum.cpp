@@ -1,3 +1,8 @@
+// ITMO Academy - Segment Tree - Part 1
+// A. Segment Tree for the Sum
+// https://codeforces.com/edu/course/2/lesson/4/1/practice/contest/273169/problem/A
+// 17-09-2021
+
 #include <bits/stdc++.h>
 
 using namespace std;
