@@ -1,5 +1,5 @@
 // Educational Codeforces Round 114 (Div. 2)
-// B. Combinatorics Homework [WA]
+// B. Combinatorics Homework [AC/w.ed.]
 // https://codeforces.com/contest/1574/problem/B
 // 21-09-2021
 
@@ -22,7 +22,7 @@ ostream &operator << (ostream &os, const vector<T>& v)  {
     return os << "]";
 }
 
-void solve()    {
+void solve_wa()    {
     int a, b, c, m;
     cin >> a >> b >> c >> m;
     // DBGY(a); DBGY(b); DBGY(c); DBG(m);
@@ -53,6 +53,29 @@ void solve()    {
         else
             cout << "YES\n";
     } 
+}
+
+void solve()    {
+    int x1, x2, x3, m;
+    cin >> x1 >> x2 >> x3 >> m;
+    int a, b, c;
+    a = min(x1, x2);
+    c = max(x1, x2);
+    if (x3 >= c)  {
+        b = c;
+        c = x3;
+    }
+    else if (x3 <= a)   {
+        b = a;
+        a = x3;
+    }
+    else    {
+        b = x3;
+    }
+    if (m > a + b + c - 3 || m < c - 1 - (a + b))
+        cout << "NO\n";
+    else
+        cout << "YES\n";
 }
 
 int main()  {
