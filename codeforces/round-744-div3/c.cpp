@@ -1,7 +1,7 @@
 // Codeforces Round #744 (Div. 3)
-// C. Ticks [WA]
+// C. Ticks [AC]
 // https://codeforces.com/contest/1579/problem/C
-// 28-09-2021
+// 30-09-2021
 
 #include <bits/stdc++.h>
 
@@ -28,15 +28,7 @@ void solve()    {
     vector<string> f(n);
     for (int i = 0; i < n; i++)
         cin >> f[i];
-    vector<vector<int>> g(n, vector<int>(m));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if (f[i][j] == '*')
-                g[i][j] = -1;
-            else
-                g[i][j] = 0;
-        }
-    }
+    vector<vector<bool>> mark(n, vector<bool>(m));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             if (f[i][j] == '*')    {
@@ -44,25 +36,23 @@ void solve()    {
                 while (i - d > 0 && j + d - 1 < m && j - d > 0)  {
                     int h = d + 1;
                     if (f[i - h][j - h] == '*' && f[i - h][j + h] == '*')   {
-                        // g[i][j] = g[i - h][j - h] = g[i - h][j + h] = h;
                         d++;
                     }
                     else
                         break;
                 }
-                if (d > 0) {
-                    g[i][j] = d;
+                if (d >= k) {
+                    mark[i][j] = true;
                     for (int h = 0; h <= d; h++) {
-                        g[i - h][j - h] = g[i - h][j + h] = d;
+                        mark[i - h][j - h] = mark[i - h][j + h] = true;
                     }
                 }
             }
         }
     }
-    // DBG(g);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            if (g[i][j] < 0 || (g[i][j] > 0 && g[i][j] < k)) {
+            if (f[i][j] == '*' && !mark[i][j])    {
                 cout << "NO\n";
                 return;
             }
