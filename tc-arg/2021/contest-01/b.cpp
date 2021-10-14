@@ -1,3 +1,12 @@
+/*
+ *
+ * Training Camp Argentina - 2021
+ * Contest #1 - B. Secret Combination
+ * https://codeforces.com/group/gXivUSZQpn/contest/337086/problem/B
+ * 12/10/21
+ * 
+ */
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -7,29 +16,19 @@ int main()  {
     cin >> n;
     string s;
     cin >> s;
-    char minor = s[0];
-    for (char c : s)    {
-        if (c < minor)
-            minor = c;
-    }
-    set<string> st;
-    string t(n, ' ');
+    string ans = s;
     for (int i = 0; i < n; i++) {
-        if (s[i] == minor)  {
-            // rotate_copy(s.begin(), s.begin() + i, s.end(), t);
-            int j = 0;
-            for (int k = i; k < n; k++)  {
-                t[j++] = s[k];
-            }
-            for (int k = 0; k < i; k++) {
-                t[j++] = s[k];
-            }
-            st.insert(t);
-        }
+        int diff = 10 - (s[i] - '0');
+        string t(n, ' ');
+/*        for (int j = 0; j + 1 < n; j++)
+            s[j] = s[j + 1];
+        s[n - 1] = s0;*/
+        for (int j = 0; j < n; j++)
+            t[j] = s[(j + i) % n];
+        for (int j = 0; j < n; j++)
+            t[j] = '0' + (t[j] - '0' + diff) % 10;
+        if (t < ans)
+            ans = t;
     }
-    assert(!st.empty());
-    for (char c: *st.begin())   {
-        cout << c - minor;
-    }
-    cout << endl;
+    cout << ans << endl;
 }
