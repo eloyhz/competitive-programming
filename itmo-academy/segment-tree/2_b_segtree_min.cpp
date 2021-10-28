@@ -1,5 +1,5 @@
 // ITMO Academy - Segment Tree - Part 1
-// B. Segment Tree for the Minimum
+// B. Segment Tree for the Minimum (with build optimization)
 // https://codeforces.com/edu/course/2/lesson/4/1/practice/contest/273169/problem/B
 // 27-10-2021
 
@@ -16,6 +16,24 @@ struct segtree  {
         while (size < n)
             size *= 2;
         mn.assign(2 * size, 0);    
+    }
+
+    void build(vector<int> &a, int x, int lx, int rx)  {
+        if (rx - lx == 1)   {
+            if (lx < (int)a.size())
+                mn[x] = a[lx];
+            return;
+        }
+        int m = (lx + rx) / 2;
+        int l_child = 2 * x + 1;
+        int r_child = 2 * x + 2;
+        build(a, l_child, lx, m);
+        build(a, r_child, m, rx);
+        mn[x] = ::min(mn[l_child], mn[r_child]);
+    }
+
+    void build(vector<int> &a)  {
+        build(a, 0, 0, size);
     }
 
     void set(int i, int v, int x, int lx, int rx)   {
@@ -61,13 +79,12 @@ int main()  {
     cin.tie(nullptr)->sync_with_stdio(false);
     int n, m;
     cin >> n >> m;
+    vector<int> a(n);
+    for (int &x : a)
+        cin >> x;
     segtree st;
     st.init(n);
-    for (int i = 0; i < n; i++) {
-        int a;
-        cin >> a;
-        st.set(i, a);
-    }
+    st.build(a);
     while (m--) {
         int op;
         cin >> op;
