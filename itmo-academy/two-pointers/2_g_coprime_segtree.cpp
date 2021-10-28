@@ -1,7 +1,7 @@
 /*
  *
  * ITMO Academy - Two Pointers Method - Part 2
- * G. Coprime Segment (gcd with segment tree)
+ * G. Coprime Segment (gcd with segment tree/build optimization)
  * https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/G
  * 28-10-2021
  * 
@@ -27,6 +27,24 @@ struct segtree  {
         while (size < n)
             size *= 2;
         g.resize(size * 2, 0);
+    }
+
+    void build(vector<ll> &a, int x, int lx, int rx)   {
+        if (rx - lx == 1)   {
+            if (lx < (int)a.size())
+                g[x] = a[lx];
+            return;
+        }
+        int m = (rx + lx) / 2;
+        int l_child = 2 * x + 1;
+        int r_child = 2 * x + 2;
+        build(a, l_child, lx, m);
+        build (a, r_child, m, rx);
+        g[x] = ::gcd(g[l_child], g[r_child]);
+    }
+
+    void build(vector<ll> &a)   {
+        build(a, 0, 0, size);
     }
 
     void set(int i, ll v, int x, int lx, int rx)   {
@@ -69,13 +87,12 @@ struct segtree  {
 int main()  {
     int n;
     cin >> n;
+    vector<ll> a(n);
+    for (ll &x : a)
+        cin >> x;
     segtree st;
     st.init(n);
-    for (int i = 0; i < n; i++) {
-        ll a;
-        cin >> a;
-        st.set(i, a);
-    }
+    st.build(a);
     int ans = INT_MAX;
     int l = 0;
     for (int r = 1; r <= n; r++) {
