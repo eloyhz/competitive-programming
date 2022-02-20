@@ -1,5 +1,6 @@
 /**
  * Acepta el reto - Suma descendente
+ * https://www.aceptaelreto.com/problem/statement.php?id=265
  * 19-02-2022
  */
 
